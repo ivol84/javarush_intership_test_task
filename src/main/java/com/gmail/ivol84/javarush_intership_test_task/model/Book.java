@@ -13,7 +13,7 @@ public class Book implements Serializable {
     private String description;
     private String author;
     private String isbn;
-    private int year;
+    private int printYear;
     private boolean readAlready;
 
     public Long getId() {
@@ -56,12 +56,12 @@ public class Book implements Serializable {
         this.isbn = isbn;
     }
 
-    public int getYear() {
-        return year;
+    public int getPrintYear() {
+        return printYear;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setPrintYear(int printYear) {
+        this.printYear = printYear;
     }
 
     public boolean isReadAlready() {
@@ -70,5 +70,18 @@ public class Book implements Serializable {
 
     public void setReadAlready(boolean readAlready) {
         this.readAlready = readAlready;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", author='" + author + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", year=" + printYear +
+                ", readAlready=" + readAlready +
+                '}';
     }
 }
