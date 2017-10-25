@@ -13,11 +13,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class ReplaceBookController {
+public class BookController {
     @Autowired
     BookService bookService;
     @Autowired
     RequestBookMapping mapping;
+
+    @RequestMapping(path = "/create", method = RequestMethod.GET)
+    public String createForm(Model model) {
+        Book book = new Book();
+        model.addAttribute("book", book);
+        return "create_book";
+    }
+
+    @RequestMapping(path= "/create", method = RequestMethod.POST)
+    public String createFormSubmit(HttpServletRequest request) {
+        Book book = mapping.map(new Book(), request);
+        System.out.println(book);
+        bookService.addNewBook(book);
+        return "redirect:/";
+    }
+
+    @RequestMapping(path = "/")
+    public String listBooks(Model model) {
+        model.addAttribute("books", bookService.findAll());
+        return "list_books";
+    }
 
     @RequestMapping(path = "/replace", method = RequestMethod.GET)
     public String replaceForm(@RequestParam(value="id", required=true) long id, Model model) {
@@ -37,5 +58,18 @@ public class ReplaceBookController {
         return "redirect:/";
     }
 
+    @RequestMapping(path = "/markAsRead", method = RequestMethod.GET)
+    public String markAsRead(@RequestParam(value="id", required=true) long id) {
+        Book book = bookService.findById(id);
+        book.setReadAlready(true);
+        bookService.updateBook(book);
+        return "redirect:/";
+    }
 
+    @RequestMapping(path = "/delete", method = RequestMethod.GET)
+    public String delete(@RequestParam(value="id", required=true) long id) {
+        Book book = bookService.findById(id);
+        bookService.deleteBook(book);
+        return "redirect:/";
+    }
 }

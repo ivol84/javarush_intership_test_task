@@ -33,4 +33,9 @@ public class BookService {
     public void updateBook(Book book) {
         dao.update(book);
     }
+
+    @Transactional(readOnly = false)
+    public void deleteBook(Book book) {
+        dao.delete(book);
+    }
 }

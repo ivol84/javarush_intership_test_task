@@ -5,9 +5,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Создание книги</title>
+<title>Список книг</title>
 </head>
 <body>
+    <form action="/" method="POST">
+        <label for="filter">Фильтр:</label>
+        <input type="text" name="filter" value=""/>
+        <input type="submit"/>
+    </form>
+
     <table>
         <thead>
             <th>Название</th>
@@ -22,7 +28,16 @@
                     <td>${book.title}</td>
                     <td>${book.author}</td>
                     <td><a href="replace?id=${book.id}">Заменить</a></td>
-                    <td><a href="markRead?id=${book.id}">Прочитано</a></td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${book.readAlready}">
+                                Уже прочитано
+                            </c:when>
+                            <c:otherwise>
+                                <a href="markAsRead?id=${book.id}">Прочитано</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
                     <td><a href="delete?id=${book.id}">Удалить</a></td>
                 </tr>
             </c:forEach>

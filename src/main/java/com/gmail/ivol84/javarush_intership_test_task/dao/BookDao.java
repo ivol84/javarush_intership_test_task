@@ -35,4 +35,8 @@ public class BookDao {
         TypedQuery<Book> query=getSession().createQuery("from book");
         return query.getResultList();
     }
+
+    public void delete(Book book) {
+        getSession().delete(book);
+    }
 }
