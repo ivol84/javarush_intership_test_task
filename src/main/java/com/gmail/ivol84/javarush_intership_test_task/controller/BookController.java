@@ -35,8 +35,12 @@ public class BookController {
     }
 
     @RequestMapping(path = "/")
-    public String listBooks(Model model) {
-        model.addAttribute("books", bookService.findAll());
+    public String listBooks(@RequestParam(value="filter", required=false, defaultValue = "") String filter,
+                            @RequestParam(value="page", required=false, defaultValue = "1") Integer page,
+                            Model model) {
+        model.addAttribute("books", bookService.findByCriteria(filter, page));
+        model.addAttribute("filter", filter);
+        model.addAttribute("page", page);
         return "list_books";
     }
 

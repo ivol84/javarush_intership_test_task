@@ -31,8 +31,17 @@ public class BookDao {
         return getSession().get(Book.class, id);
     }
 
-    public List<Book> findAll() {
-        TypedQuery<Book> query=getSession().createQuery("from book");
+    public List<Book> findByCriteria(String queryString, int page) {
+        String whereClause = "from book b";
+        if (!queryString.isEmpty()) {
+            whereClause += " WHERE b.author=:query or b.title=:query";
+        }
+        TypedQuery<Book> query=getSession().createQuery(whereClause);
+        if (!queryString.isEmpty()) {
+            query.setParameter("query", queryString);
+        }
+        query.setFirstResult((page - 1) * 10);
+        query.setMaxResults(10);
         return query.getResultList();
     }
 

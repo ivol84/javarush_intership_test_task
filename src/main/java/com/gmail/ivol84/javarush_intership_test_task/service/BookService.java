@@ -20,8 +20,16 @@ public class BookService {
     }
 
     @Transactional
-    public List<Book> findAll() {
-        return dao.findAll();
+    public List<Book> findByCriteria() {
+        return findByCriteria("", 1);
+    }
+    @Transactional
+    public List<Book> findByCriteria(String query) {
+        return findByCriteria(query, 1);
+    }
+    @Transactional
+    public List<Book> findByCriteria(String query, int page) {
+        return dao.findByCriteria(query, page);
     }
 
     @Transactional(readOnly = false)

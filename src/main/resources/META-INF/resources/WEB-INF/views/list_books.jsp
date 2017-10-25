@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8"
+    <%@ page contentType="text/html; charset=UTF-8"
      pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
@@ -10,7 +10,7 @@
 <body>
     <form action="/" method="POST">
         <label for="filter">Фильтр:</label>
-        <input type="text" name="filter" value=""/>
+        <input type="text" name="filter" value="${filter}"/>
         <input type="submit"/>
     </form>
 
@@ -43,6 +43,33 @@
             </c:forEach>
         </tbody>
     </table>
-    <a href="create">Добавить книгу</a>
+    <p><a href="create">Добавить книгу</a></p>
+    <p>
+    <form action="/" id="pagination" method="POST">
+        <input type="hidden" name="page" id="pageNumber" value="${page}"/>
+        <input type="hidden" name="filter"  value="${filter}"/>
+        <button id="prev">Назад</button>
+        <button id="next">Вперед</button>
+    </form>
+    </p>
+<script>
+    function init() {
+        const elementPrev = document.getElementById("prev");
+        const elementNext = document.getElementById("next");
+        const pageNumberInput = document.getElementById("pageNumber");
+        const paginationForm = document.getElementById("pagination");
+        elementPrev.onclick = function() {
+            if (pageNumberInput.value != 1) {
+                pageNumberInput.value  = parseInt(pageNumberInput.value) - 1;
+                paginationForm.submit();
+            }
+        };
+        elementNext.onclick = function() {
+            pageNumberInput.value  = parseInt(pageNumberInput.value) + 1;
+            paginationForm.submit();
+        };
+    }
+    window.onload = init;
+</script>
 </body>
 </html>
