@@ -28,4 +28,9 @@ public class BookService {
     public void addNewBook(Book book) {
         dao.save(book);
     }
+
+    @Transactional(readOnly = false)
+    public void updateBook(Book book) {
+        dao.update(book);
+    }
 }

@@ -41,6 +41,13 @@
 			<artifactId>spring-orm</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- Hibernate framework -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

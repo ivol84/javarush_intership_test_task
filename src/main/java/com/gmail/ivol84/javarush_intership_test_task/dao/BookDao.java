@@ -23,6 +23,10 @@ public class BookDao {
         return getSession().save(book);
     }
 
+    public void update(Book book) {
+        getSession().update(book);
+    }
+
     public Book findById(final long id) {
         return getSession().get(Book.class, id);
     }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.logging.Logger;
 
 @Controller
@@ -20,17 +21,26 @@ public class BookController {
     @RequestMapping(name = "/replace", method = RequestMethod.GET)
     public String replaceForm(@RequestParam(value="id", required=true) long id, Model model) {
         Book book = bookService.findById(id);
-        System.out.println(book);
         model.addAttribute("book", book);
         model.addAttribute("title", "Replace book");
         return "replace_book";
     }
 
     @RequestMapping(name = "/replace", method = RequestMethod.POST)
-    @ResponseBody
-    public String replaceFormSubmit(@RequestParam(value="id", required=true) long id, Model model) {
+    /**
+     * @XXX: Add Validation
+     * @XXX: Fix redirect
+     */
+    public String replaceFormSubmit(@RequestParam(value="id", required=true) long id, HttpServletRequest request) {
         Book book = bookService.findById(id);
-        return "Got it";
+        book.setTitle(request.getParameter("title"));
+        book.setDescription(request.getParameter("description"));
+        book.setIsbn(request.getParameter("isbn"));
+        book.setPrintYear(Integer.parseInt(request.getParameter("year")));
+        book.setReadAlready(false);
+        System.out.println(book);
+        bookService.updateBook(book);
+        return "redirect:/replace?id="+book.getId();
     }
 
 
