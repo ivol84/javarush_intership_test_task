@@ -52,10 +52,6 @@ public class BookController {
     }
 
     @RequestMapping(path = "/replace", method = RequestMethod.POST)
-    /**
-     * @XXX: Add Validation
-     * @XXX: Fix redirect
-     */
     public String replaceFormSubmit(@RequestParam(value="id", required=true) long id, HttpServletRequest request) {
         Book book = mapping.map(bookService.findById(id), request);
         bookService.updateBook(book);
@@ -65,8 +61,10 @@ public class BookController {
     @RequestMapping(path = "/markAsRead", method = RequestMethod.GET)
     public String markAsRead(@RequestParam(value="id", required=true) long id) {
         Book book = bookService.findById(id);
-        book.setReadAlready(true);
-        bookService.updateBook(book);
+        if (!book.isReadAlready()) {
+            book.setReadAlready(true);
+            bookService.updateBook(book);
+        }
         return "redirect:/";
     }
 
