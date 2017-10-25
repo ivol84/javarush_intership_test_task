@@ -32,7 +32,7 @@ public class BookDao {
     }
 
     public List<Book> findAll() {
-        TypedQuery<Book> query=getSession().createQuery("from Book");
+        TypedQuery<Book> query=getSession().createQuery("from book");
         return query.getResultList();
     }
 }

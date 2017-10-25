@@ -30,6 +30,6 @@ public class CreateBookController {
         Book book = mapping.map(new Book(), request);
         System.out.println(book);
         bookService.addNewBook(book);
-        return "redirect:/replace?id="+book.getId();
+        return "redirect:/";
     }
 }

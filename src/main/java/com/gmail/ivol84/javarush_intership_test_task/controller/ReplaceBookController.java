@@ -34,7 +34,7 @@ public class ReplaceBookController {
     public String replaceFormSubmit(@RequestParam(value="id", required=true) long id, HttpServletRequest request) {
         Book book = mapping.map(bookService.findById(id), request);
         bookService.updateBook(book);
-        return "redirect:/replace?id="+book.getId();
+        return "redirect:/";
     }
 
 

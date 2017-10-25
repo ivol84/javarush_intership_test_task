@@ -13,7 +13,9 @@ public class RequestBookMapping {
         book.setIsbn(request.getParameter("isbn"));
         book.setPrintYear(Integer.parseInt(request.getParameter("year")));
         book.setReadAlready(false);
-        book.setAuthor(request.getParameter("author"));
+        if (request.getParameter("author") != null) {
+            book.setAuthor(request.getParameter("author"));
+        }
         return book;
     }
 }
