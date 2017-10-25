@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html>
         <head>
-                <title>${title}</title>
+                <title>Замена книги</title>
         </head>
 <body>
         <h1><jsp:text>${book.author}</jsp:text>: ${book.title}</h1>
-        <form action="replace/replace?id=${book.id}" method="POST">
+        <form action="/replace?id=${book.id}" method="POST">
                 <div>
                         <label for="title">Название книги</label>
                         <input type="text" id="title" name="title" value="${book.title}"/>
@@ -25,7 +25,7 @@
                         <input type="text" id="year" name="year" value="${book.printYear}"/>
                 </div>
                 <div>
-                        <input type="submit" value="Сохранить изменения"/>
+                        <input type="submit" value="Сохранить"/>
                 </div>
         </form>
         </body>
